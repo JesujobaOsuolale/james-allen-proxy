@@ -1,12 +1,10 @@
-const fetch = require('node-fetch');
-
 exports.handler = async function(event) {
   const date = (event.queryStringParameters && event.queryStringParameters.date) || todayUTC();
   try {
-    const upstream = await fetch(`https://james-allen.in1woord.nl/daily.php?date=${date}`, {
+    const response = await fetch(`https://james-allen.in1woord.nl/daily.php?date=${date}`, {
       headers: { 'User-Agent': 'Mozilla/5.0 (compatible; PastoralSuiteProxy/1.0)' }
     });
-    const text = await upstream.text();
+    const text = await response.text();
     return {
       statusCode: 200,
       headers: {
